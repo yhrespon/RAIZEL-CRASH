@@ -1,0 +1,208 @@
+:root{
+  --bg-1: #040406;
+  --bg-2: #071012;
+  --neon: #00ff7a; /* neon green */
+  --glass-alpha: 0.12;
+  --glass-border: rgba(0,255,122,0.18);
+  --muted: rgba(255,255,255,0.45);
+  --card-w: 380px;
+}
+
+*{box-sizing:border-box}
+html,body{
+  height:100%;
+  margin:0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(0,255,122,0.03), transparent),
+              radial-gradient(900px 500px at 90% 85%, rgba(0,255,122,0.02), transparent),
+              linear-gradient(180deg,var(--bg-1),var(--bg-2));
+  color:#dfffe6;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow:hidden;
+}
+
+/* Particles canvas sits under everything */
+#particles{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+}
+
+/* Status bar (phone-like) */
+.statusbar{
+  position:fixed;
+  top:14px;
+  left:50%;
+  transform:translateX(-50%);
+  width:92%;
+  max-width:420px;
+  z-index:5;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-family:"JetBrains Mono", monospace;
+  color:var(--neon);
+  font-size:13px;
+  opacity:0.95;
+  pointer-events:none;
+  text-shadow:0 0 6px rgba(0,255,122,0.12);
+}
+.status-left, .status-center, .status-right{display:flex;gap:8px;align-items:center}
+.status-center{opacity:0.6}
+
+/* Stage centers the card */
+.stage{
+  position:relative;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:3;
+  padding:36px;
+}
+
+/* Glass card */
+.glass-card{
+  width:var(--card-w);
+  max-width:92vw;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.7), 0 0 40px rgba(0,255,122,0.05) inset;
+  backdrop-filter: blur(10px) saturate(140%);
+  border:1px solid var(--glass-border);
+  position:relative;
+  overflow:hidden;
+  text-align:left;
+}
+
+/* Subtle floating lines */
+.glass-card::before{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(90deg, transparent, rgba(0,255,122,0.02));
+  mix-blend-mode:screen;
+  pointer-events:none;
+}
+
+/* Header */
+.card-header h1{
+  font-family: "JetBrains Mono", monospace;
+  font-size:16px;
+  margin:0;
+  letter-spacing:1px;
+  color:var(--neon);
+  text-transform:uppercase;
+  text-shadow:0 0 18px rgba(0,255,122,0.22);
+}
+.small-url{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:6px;
+  font-weight:500;
+}
+
+/* Fields */
+.card-body{
+  margin-top:14px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.field{display:flex;flex-direction:column;gap:6px}
+.label-text{font-size:12px;color:var(--muted);font-weight:600}
+input[type="tel"], select{
+  height:46px;
+  border-radius:10px;
+  border:1px solid rgba(0,255,122,0.06);
+  padding:0 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.006));
+  color:#eafff2;
+  outline:none;
+  font-size:14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  transition:box-shadow .18s, transform .12s;
+}
+input::placeholder{color:rgba(200,255,220,0.22)}
+input:focus, select:focus{
+  box-shadow:0 8px 30px rgba(0,255,122,0.06);
+  transform:translateY(-1px);
+  border-color:var(--neon);
+}
+
+/* Hint small italic */
+.hint{
+  font-size:12px;
+  color:rgba(200,255,220,0.25);
+  font-style:italic;
+  margin-top:4px;
+}
+
+/* Attack button */
+.attack-btn{
+  position:relative;
+  width:100%;
+  height:64px;
+  border-radius:12px;
+  border:0;
+  cursor:pointer;
+  overflow:visible;
+  background:linear-gradient(180deg, rgba(0,255,122,0.06), rgba(0,255,122,0.02));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:"JetBrains Mono", monospace;
+  letter-spacing:2px;
+  color:var(--neon);
+  font-size:18px;
+  text-transform:uppercase;
+  box-shadow: 0 10px 40px rgba(0,255,122,0.035), 0 6px 18px rgba(0,0,0,0.6);
+  transition:transform .12s, filter .12s;
+}
+.attack-btn:active{transform:translateY(2px) scale(.999)}
+.attack-btn[disabled]{opacity:0.6; cursor:not-allowed; filter:grayscale(.2)}
+
+/* Glow element inside button */
+.btn-glow{
+  pointer-events:none;
+  position:absolute;
+  inset:0;
+  border-radius:12px;
+  box-shadow:0 0 36px rgba(0,255,122,0.18), 0 0 80px rgba(0,255,122,0.06) inset;
+  opacity:.9;
+  transition:opacity .18s;
+}
+
+/* Progress / output hidden by default */
+.status-output{margin-top:10px; display:none; gap:8px}
+.progress{height:8px;background:rgba(255,255,255,0.03);border-radius:8px;overflow:hidden}
+.progress .bar{width:0%;height:100%;background:linear-gradient(90deg,var(--neon),#06d97a);transition:width .2s}
+.output-text{font-size:13px;color:var(--muted);min-height:18px}
+
+/* Toast */
+.toast{
+  position:absolute;
+  bottom:12px;
+  right:12px;
+  background:rgba(0,0,0,0.55);
+  border-radius:10px;
+  padding:8px 12px;
+  font-size:12px;
+  color:var(--neon);
+  box-shadow:0 6px 20px rgba(0,0,0,0.6);
+  border:1px solid rgba(0,255,122,0.08);
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity .28s, transform .28s;
+  pointer-events:none;
+}
+
+/* small responsive */
+@media (max-width:420px){
+  :root{--card-w:92vw}
+  .statusbar{top:10px}
+  .attack-btn{height:58px}
+}
