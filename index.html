@@ -3,43 +3,45 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="RAIZEL — Interface demo cyberpunk pour envoi de message test WhatsApp (mode demo / pairing code)" />
   <title>RAIZEL CRASH BUG-API — Demo</title>
 
-  <!-- Font -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
 
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Particles canvas -->
-  <canvas id="particles"></canvas>
+  <!-- Particles canvas (underlay) -->
+  <canvas id="particles" aria-hidden="true"></canvas>
 
   <!-- Faux phone status bar -->
-  <div class="statusbar">
+  <div class="statusbar" role="banner" aria-hidden="false">
     <div class="status-left">22:45</div>
     <div class="status-center">RAIZEL</div>
     <div class="status-right">
-      <span class="sig">▂▂▂</span>
-      <span class="bat">🔋 87%</span>
+      <span class="sig" aria-hidden="true">▂▂▂</span>
+      <span class="bat" aria-hidden="true">🔋 87%</span>
     </div>
   </div>
 
   <!-- Center card -->
-  <main class="stage">
+  <main class="stage" role="main">
     <section class="glass-card" role="application" aria-label="RAIZEL Crash UI">
       <header class="card-header">
         <h1>RAIZEL CRASH BUG-API</h1>
-        <div class="small-url">https://raizel.example/opened-from-link</div>
+        <div class="small-url" title="Source / opened-from-link">https://raizel.example/opened-from-link</div>
       </header>
 
       <form id="attackForm" class="card-body" autocomplete="off" novalidate>
-        <label class="field">
+        <label class="field" for="waNumber">
           <span class="label-text">WhatsApp Number</span>
           <input id="waNumber" name="waNumber" type="tel" inputmode="numeric"
                  placeholder="Enter WhatsApp Number (start with 237)" aria-label="Numero WhatsApp" />
         </label>
 
-        <label class="field">
+        <label class="field" for="platform">
           <span class="label-text">Platform</span>
           <select id="platform" name="platform" aria-label="Choisir plateforme">
             <option>XDROID</option>
@@ -48,25 +50,26 @@
           </select>
         </label>
 
-        <div class="hint">Enter the target number. Start with <em>237</em>.</div>
+        <div class="hint" aria-hidden="false">Enter the target number. Start with <em>237</em>.</div>
 
-        <button id="attackBtn" type="button" class="attack-btn" aria-live="polite">
-          <span class="btn-glow"></span>
+        <button id="attackBtn" type="button" class="attack-btn" aria-live="polite" aria-pressed="false">
+          <span class="btn-glow" aria-hidden="true"></span>
           <span class="btn-text">ATTACK</span>
         </button>
 
         <div class="status-output" aria-hidden="true">
-          <div class="progress">
+          <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
             <div class="bar"></div>
           </div>
-          <div class="output-text"></div>
+          <div class="output-text" aria-live="polite"></div>
         </div>
       </form>
 
-      <div class="toast" id="toast">powered by raizel</div>
+      <div class="toast" id="toast" role="status" aria-live="polite">powered by raizel</div>
     </section>
   </main>
 
+  <!-- Script -->
   <script src="script.js"></script>
 </body>
 </html>
