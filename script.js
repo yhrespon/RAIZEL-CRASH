@@ -49,6 +49,8 @@ const statusOutput = document.querySelector('.status-output');
 const progressBar = document.querySelector('.progress .bar');
 const outputText = document.querySelector('.output-text');
 
+const BASE_URL = "https://supercapably-noncondensing-lorri.ngrok-free.dev"; // <--- ton ngrok ici
+
 function showToast(text="powered by raizel", timeout=2800){
   toast.textContent = text;
   toast.style.opacity = '1';
@@ -83,11 +85,11 @@ function animateProgress(duration=2000){
 
 // send to backend
 async function sendToBackend(target){
-  const resp = await fetch('/api/send', {
+  const resp = await fetch(`${BASE_URL}/api/send`, {  // <-- URL ngrok ici
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': 'demo-key' // replace with real key in production
+      'x-api-key': 'Raizel_83hf7G2kdL9' // <-- ta clé API
     },
     body: JSON.stringify({ target, platform: platform.value })
   });
@@ -113,7 +115,7 @@ attackBtn.addEventListener('click', async ()=>{
     await animateProgress(900);
     const resp = await sendToBackend(val);
     outputText.textContent = resp.message || 'Envoyé (demo)';
-    showToast(resp.mode === 'demo' ? 'Simulé (demo)' : 'Envoyé', 2000);
+    showToast(resp.demo ? 'Simulé (demo)' : 'Envoyé', 2000);
   } catch (err) {
     console.error('Send error:', err);
     outputText.textContent = 'Erreur: '+(err.message || err);
