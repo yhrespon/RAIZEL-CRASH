@@ -1,5 +1,4 @@
 // public/script.js
-// --- Particles & UI code (identique au précédent) ---
 
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d', { alpha: true });
@@ -8,6 +7,7 @@ let H = canvas.height = innerHeight;
 const particles = [];
 const PARTICLE_COUNT = Math.round((W*H)/60000 * 45) + 20;
 function rand(min, max){ return Math.random()*(max-min)+min; }
+
 class P {
   constructor(){
     this.x = rand(0, W); this.y = rand(0, H);
@@ -25,6 +25,7 @@ class P {
   }
   reset(){ this.x = rand(0, W); this.y = rand(0, H); this.vx = rand(-0.2, 0.2); this.vy = rand(-0.3, 0.3); this.r = rand(0.6, 2.2); this.life = rand(200, 800); this.alpha = rand(0.02, 0.25); }
 }
+
 function initParticles(){ particles.length = 0; for(let i=0;i<PARTICLE_COUNT;i++) particles.push(new P()); }
 function draw(){
   ctx.clearRect(0,0,W,H);
@@ -39,8 +40,7 @@ function draw(){
 addEventListener('resize', ()=>{ W = canvas.width = innerWidth; H = canvas.height = innerHeight; initParticles(); });
 initParticles(); draw();
 
-
-// --- UI interactions & safe API call ---
+// --- UI & Backend ---
 const attackBtn = document.getElementById('attackBtn');
 const waInput = document.getElementById('waNumber');
 const platform = document.getElementById('platform');
@@ -49,7 +49,17 @@ const statusOutput = document.querySelector('.status-output');
 const progressBar = document.querySelector('.progress .bar');
 const outputText = document.querySelector('.output-text');
 
-const BASE_URL = "https://supercapably-noncondensing-lorri.ngrok-free.dev"; // <--- ton ngrok ici
+let API_KEY = "demo-key";      // fallback
+let BASE_URL = "https://supercapably-noncondensing-lorri.ngrok-free.dev";              // sera défini via /api/url
+
+async function initConfig(){
+  try {
+    const res = await fetch('/api/url', { headers: { 'x-api-key': API_KEY } });
+    const j = await res.json();
+    if(res.ok && j.url) BASE_URL = j.url;
+  } catch(e){ console.warn("Impossible de récupérer l'URL dynamique ngrok", e); }
+}
+initConfig();
 
 function showToast(text="powered by raizel", timeout=2800){
   toast.textContent = text;
@@ -83,13 +93,13 @@ function animateProgress(duration=2000){
   });
 }
 
-// send to backend
 async function sendToBackend(target){
-  const resp = await fetch(`${BASE_URL}/api/send`, {  // <-- URL ngrok ici
+  if(!BASE_URL) BASE_URL = window.location.origin;
+  const resp = await fetch(`${BASE_URL}/api/send`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': 'Raizel_83hf7G2kdL9' // <-- ta clé API
+      'x-api-key': API_KEY
     },
     body: JSON.stringify({ target, platform: platform.value })
   });
